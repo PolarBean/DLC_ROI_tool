@@ -1,0 +1,51 @@
+name: ROI_ENV
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - ca-certificates=2020.4.5.1=hecc5488_0
+  - certifi=2020.4.5.1=py38h32f6830_0
+  - freetype=2.10.2=hd328e21_0
+  - icu=64.2=he025d50_1
+  - intel-openmp=2020.0=166
+  - jpeg=9c=hfa6e2cd_1001
+  - libblas=3.8.0=15_mkl
+  - libcblas=3.8.0=15_mkl
+  - libclang=9.0.1=default_hf44288c_0
+  - liblapack=3.8.0=15_mkl
+  - liblapacke=3.8.0=15_mkl
+  - libopencv=4.2.0=py38_6
+  - libpng=1.6.37=hfe6a214_1
+  - libtiff=4.1.0=h885aae3_6
+  - libwebp=1.0.2=hfa6e2cd_5
+  - lz4-c=1.9.2=h62dcd97_1
+  - mkl=2020.0=166
+  - numpy=1.18.4=py38h72c728b_0
+  - olefile=0.46=py_0
+  - opencv=4.2.0=py38_6
+  - openssl=1.1.1g=he774522_0
+  - pandas=0.25.3=py38he350917_0
+  - pillow=7.1.2=py38h7011068_0
+  - pip=20.1.1=pyh9f0ad1d_0
+  - py-opencv=4.2.0=py38h23f93f0_6
+  - python=3.8.2=h5fd99cc_7_cpython
+  - python-dateutil=2.8.1=py_0
+  - python_abi=3.8=1_cp38
+  - pytz=2020.1=pyh9f0ad1d_0
+  - qt=5.12.5=h7ef1ec2_0
+  - setuptools=46.4.0=py38h32f6830_0
+  - six=1.15.0=pyh9f0ad1d_0
+  - sqlite=3.30.1=hfa6e2cd_0
+  - tk=8.6.10=hfa6e2cd_0
+  - vc=14.1=h869be7e_1
+  - vs2015_runtime=14.16.27012=h30e32a0_2
+  - wheel=0.34.2=py_1
+  - wincertstore=0.2=py38_1003
+  - xz=5.2.5=h2fa13f4_0
+  - zlib=1.2.11=h2fa13f4_1006
+  - zstd=1.4.4=h9f78265_3
+  - pip:
+    - numexpr==2.7.1
+    - tables==3.6.1
+prefix: C:\Users\nicka\anaconda3\envs\ROI_ENV
+
