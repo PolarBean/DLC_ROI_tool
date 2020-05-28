@@ -2,7 +2,7 @@
 A tool for drawing ROIs on videos and analysing deeplabcut videos.
 
 Install the requirements from the yaml file :) the main one is it requires pandas to not be on version 1.x. We use pandas=0.25.3
-![alt text](https://github.com/PolarBean/DLC_ROI_tool/jump.jpg?raw=true)
+![alt text](https://github.com/PolarBean/DLC_ROI_tool/blob/master/jump.PNG?raw=true)
 # The DLC-ROI Process
 
 ## Step 1. Choose a video.
