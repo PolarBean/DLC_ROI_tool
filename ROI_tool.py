@@ -179,11 +179,11 @@ class MousePositionTracker(tk.Frame):
         for ROI in self.ALL_ROIs.iterrows():
             truth_array=((Y_data>ROI[1]['TLY'])&(Y_data<ROI[1]['BRY'])&(X_data>ROI[1]['TLX'])&(X_data<ROI[1]['BRX']))  
             My_ROI_df[truth_array]=ROI[1]['ROI']
-        save_path= simpledialog.askstring(title="Save bodypart data",
+        self.save_path= simpledialog.askstring(title="Save bodypart data",
                                   prompt="File name:")
         My_ROI_df=My_ROI_df.replace(0,"Nothing")
         My_ROI_df['Majority']=My_ROI_df.mode(axis=1).iloc[:,0]
-        My_ROI_df.to_csv(save_path+".csv")
+        My_ROI_df.to_csv(self.save_path+".csv")
         self.bp_data=My_ROI_df
         
     def load_deeplab_Coords(self):
@@ -262,7 +262,7 @@ class MousePositionTracker(tk.Frame):
                 data_analysis[roi+" time spent"]=pd.DataFrame({roi+" time spent":time_spent_dict[roi]}, index=[0])
     
         print(data_analysis)
-        data_analysis.to_csv('testing_output.csv')
+        data_analysis.to_csv(self.save_path+'entries_and_time_spent.csv')
 
 
         
