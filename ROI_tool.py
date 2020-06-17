@@ -354,7 +354,7 @@ class Application(tk.Frame):
                 if success:
                     count += 1
                
-                if count>frames*0.001:
+                if count>frames*(np.random.randint(99)*0.01):
                     my_im=Image.fromarray(my_im)
                     im_height=my_im.height
                     im_width=my_im.width
