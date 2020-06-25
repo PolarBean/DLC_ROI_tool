@@ -187,7 +187,7 @@ class MousePositionTracker(tk.Frame):
         self.bp_data=My_ROI_df
         
     def load_deeplab_Coords(self):
-        path=filedialog.askopenfilename(filetype = ([("h5 and csv files",".h5 .csv")]))
+        path=filedialog.askopenfilename(filetypes = ([("h5 and csv files",".h5 .csv")]))
         if path.endswith('.h5'):
             self.data=pd.read_hdf(path)
         else:
