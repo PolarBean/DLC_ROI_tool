@@ -3,8 +3,9 @@ channels:
   - conda-forge
   - defaults
 dependencies:
-  - ca-certificates=2020.4.5.1=hecc5488_0
-  - certifi=2020.4.5.1=py38h32f6830_0
+  - ca-certificates=2020.6.20=hecda079_0
+  - certifi=2020.6.20=py38h32f6830_0
+  - easydict=1.9=py_0
   - freetype=2.10.2=hd328e21_0
   - icu=64.2=he025d50_1
   - intel-openmp=2020.0=166
@@ -33,6 +34,9 @@ dependencies:
   - python_abi=3.8=1_cp38
   - pytz=2020.1=pyh9f0ad1d_0
   - qt=5.12.5=h7ef1ec2_0
+  - ruamel=1.0=py38h32f6830_2
+  - ruamel.yaml=0.16.6=py38h9de7a3e_1
+  - ruamel.yaml.clib=0.2.0=py38h9de7a3e_1
   - setuptools=46.4.0=py38h32f6830_0
   - six=1.15.0=pyh9f0ad1d_0
   - sqlite=3.30.1=hfa6e2cd_0
@@ -45,7 +49,20 @@ dependencies:
   - zlib=1.2.11=h2fa13f4_1006
   - zstd=1.4.4=h9f78265_3
   - pip:
+    - backcall==0.1.0
+    - colorama==0.4.3
+    - decorator==4.4.2
+    - ipython==7.15.0
+    - ipython-genutils==0.2.0
+    - jedi==0.17.0
+    - keyboard==0.13.5
     - numexpr==2.7.1
+    - parso==0.7.0
+    - pickleshare==0.7.5
+    - prompt-toolkit==3.0.5
+    - pygments==2.6.1
     - tables==3.6.1
+    - traitlets==4.3.3
+    - wcwidth==0.2.2
 prefix: C:\Users\nicka\anaconda3\envs\ROI_ENV
 

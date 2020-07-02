@@ -9,8 +9,9 @@ import cv2
 import os
 import numpy as np
 import random
-
+import glob
 from tkinter import simpledialog
+import pickle
 class MousePositionTracker(tk.Frame):
     """ Tkinter Canvas mouse position widget. """
     
@@ -49,13 +50,15 @@ class MousePositionTracker(tk.Frame):
         self.end = (event.x, event.y)
         self._update(event)
         self._command(self.start, (event.x, event.y))  # User callback.
-        
+
 
     def _update(self, event):
         # Update cross-hair lines.
         self.canvas.coords(self.lines[0], event.x, 0, event.x, self.canv_height)
         self.canvas.coords(self.lines[1], 0, event.y, self.canv_width, event.y)
         self.show()
+
+
 
 
     def reset(self):
@@ -82,7 +85,7 @@ class MousePositionTracker(tk.Frame):
     def set_and_name(self):
         COLOURS = ['snow', 'ghost white', 'white smoke', 'gainsboro', 'floral white', 'old lace',
             'linen', 'antique white', 'papaya whip', 'blanched almond', 'bisque', 'peach puff',
-            'navajo white', 'lemon chiffon', 'mint cream', 'azure', 'alice blue', 'lavender',
+            'lemon chiffon', 'mint cream', 'azure', 'alice blue', 'lavender',
             'lavender blush', 'misty rose', 'dark slate gray', 'dim gray', 'slate gray',
             'light slate gray', 'gray', 'light grey', 'midnight blue', 'navy', 'cornflower blue', 'dark slate blue',
             'slate blue', 'medium slate blue', 'light slate blue', 'medium blue', 'royal blue',  'blue',
@@ -93,7 +96,7 @@ class MousePositionTracker(tk.Frame):
             'lawn green', 'medium spring green', 'green yellow', 'lime green', 'yellow green',
             'forest green', 'olive drab', 'dark khaki', 'khaki', 'pale goldenrod', 'light goldenrod yellow',
             'light yellow', 'yellow', 'gold', 'light goldenrod', 'goldenrod', 'dark goldenrod', 'rosy brown',
-            'indian red', 'saddle brown', 'sandy brown',
+            'saddle brown', 'sandy brown',
             'dark salmon', 'salmon', 'light salmon', 'orange', 'dark orange',
             'coral', 'light coral', 'tomato', 'orange red', 'red', 'hot pink', 'deep pink', 'pink', 'light pink',
             'pale violet red', 'maroon', 'medium violet red', 'violet red',
@@ -173,6 +176,9 @@ class MousePositionTracker(tk.Frame):
         Y_data=self.data[self.data.columns[ind_Y]]
         X_data=np.array(X_data)
         Y_data=np.array(Y_data)
+        if self.cropping == True:
+            X_data += self.crop_params[0]
+            Y_data += self.crop_params[2]
         mylist=self.data.columns.get_level_values(0)
         mylist = list( dict.fromkeys(mylist) )
         My_ROI_df=pd.DataFrame(np.zeros(X_data.shape),columns=mylist)
@@ -185,7 +191,22 @@ class MousePositionTracker(tk.Frame):
         My_ROI_df['Majority']=My_ROI_df.mode(axis=1).iloc[:,0]
         My_ROI_df.to_csv(self.save_path+".csv")
         self.bp_data=My_ROI_df
-        
+
+    def read_pickle(self, filename):
+        """ Read the pickle file """
+        with open(filename, "rb") as handle:
+            return pickle.load(handle)
+
+    def load_video_metadata(self,file):
+            metadata = os.path.splitext(file)[0]
+            metadata = glob.glob("{}*.pickle".format(metadata))
+            if len(metadata) == 0:
+                text.insert(tk.INSERT,
+                            "\n\nno pickle file was found for {}, this means if you cropped your video in dlc our program will not be accurate\n\n")
+                return None
+            metadata = self.read_pickle(metadata[0])
+            return metadata
+
     def load_deeplab_Coords(self):
         path=filedialog.askopenfilename(filetypes = ([("h5 and csv files",".h5 .csv")]))
         if path.endswith('.h5'):
@@ -194,6 +215,13 @@ class MousePositionTracker(tk.Frame):
             self.data=pd.read_csv(path, header=[0,1,2])
         self.data.columns=self.data.columns.droplevel()
         self.data=self.data.drop('likelihood', axis=1, level=1)
+        metadata = self.load_video_metadata(path)
+        if metadata == None:
+            self.cropping = False
+            return
+        self.cropping =    metadata["data"]["cropping"]
+        self.crop_params = [x1, x2, y1, y2] = metadata["data"]["cropping_parameters"]
+
     def load_ROI_file(self):
         global fps
         path=filedialog.askopenfilename()
@@ -260,8 +288,6 @@ class MousePositionTracker(tk.Frame):
                 secs_spent=int(time_spent_dict[roi])/fps
                 text.insert(tk.INSERT,"\n time spent in {} is {} seconds".format(roi,secs_spent))
                 data_analysis[roi+" time spent"]=pd.DataFrame({roi+" time spent":time_spent_dict[roi]}, index=[0])
-    
-        print(data_analysis)
         data_analysis.to_csv(self.save_path+'entries_and_time_spent.csv')
 
 
@@ -345,7 +371,6 @@ class Application(tk.Frame):
             vidcap = cv2.VideoCapture(video)
             count = 0
             frames= int(vidcap.get(cv2.CAP_PROP_FRAME_COUNT))
-            print(frames)
             fps = vidcap.get(cv2.CAP_PROP_FPS) 
             text.insert(tk.INSERT,"\nVideo was recorded at {} FPS!".format(fps))
       
