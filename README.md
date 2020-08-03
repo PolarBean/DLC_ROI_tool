@@ -1,6 +1,8 @@
 # DLC_ROI_tool
 A tool for drawing ROIs on videos and analysing deeplabcut videos.
 
+##we currently do not support multi-animal but will in the future
+
 ##Installation
 Install the requirements from the yaml file with conda env create -f ROI_ENV.yml :) the main one is it requires pandas to not be on version 1.x. We use pandas=0.25.3
 ![alt text](https://github.com/PolarBean/DLC_ROI_tool/blob/master/ROI.PNG?raw=true)
