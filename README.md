@@ -1,3 +1,6 @@
+# ⚠️ This tool is no longer under development
+I recommend migrating to **[movement](https://github.com/neuroinformatics-unit/movement)**, a fantastic tool for drawing ROIs after pose estimation, plus much more.
+
 # DLC ROI tool
 A tool for drawing regions of interest (ROIs) on videos and analysing DeepLabCut videos.
 
