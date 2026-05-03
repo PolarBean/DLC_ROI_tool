@@ -13,8 +13,7 @@ $ conda env create -f ROI_ENV.yml
 ```
 The main one is that it requires pandas to not be on version 1.x. We use `pandas=0.25.3` :).
 
-
-![ROI](static/ROI.jpg)
+![ROI](static/ROI_tool.jpg)
 
 
 ## Launching the GUI
@@ -35,7 +34,7 @@ $ python ROI_tool.py
 When you initially launch the application, you will be asked to choose a video on which to draw your ROI.
 
 ### Step 2. Draw Your ROIs
-Click and drag to draw your ROIs and save them sequentially with `Set and Name.`
+Click and drag to draw your ROIs (you can select the shape, rectangle or oval, as well as the dimension in pixels) and save them sequentially with `Set and Name.`
 
 ### Step 3. Load DeepLabCut File
 Choose a scored DeepLabCut file (this should work with either the CSV or .h5 file, but I usually use the .h5).
@@ -49,3 +48,32 @@ This will quickly generate you a CSV file with basic stats on your videos, such 
 
 ### Optional. Save ROIs for Future Analysis
 The `Save ROIs to file` allows you to save your defined ROIs to a CSV file, which can be loaded later to allow for consistency and replication of your analysis.
+
+## Example Files
+For users who do not have DeepLabCut installed, example `.h5` and `.csv` ROI files are provided in the `h5data/` and `shapes/` directories respectively. These can be used to test the program's functionality.
+
+## Batch Processing
+This tool now supports processing multiple DeepLabCut files with corresponding ROI files in a batch.
+
+**Note on Performance:** Batch processing can be a time-consuming operation, especially when dealing with a large number of files, long videos, or high frame rates. The application will display a progress bar in the terminal to indicate its progress. Please be patient, as it may take a significant amount of time to complete.
+
+1.  **Prepare your batch CSV file:** Create a CSV file with two columns. The first column should contain the full paths to your `shape.csv` files (the ROI definitions), and the second column should contain the full paths to your DeepLabCut `.h5` or `.csv` files. Do not forget the header row !
+    Example `example_batchinput.csv`:
+
+| shape_file_path        | file_path           |
+|------------------------|------------------------|
+| shapes/circ_right_1.csv | h5data/random_mouse.h5 |
+2.  **Click "Process Batch":** In the GUI, click the "Process Batch" button.
+3.  **Select the batch CSV file:** A file dialog will open. Select the batch CSV file you prepared in step 1.
+4.  **View Results:** The tool will process each file pair listed in the batch CSV. An `output.csv` file will be generated in the current working directory (`/DLC_ROI_tool`). This file will contain the analysis results for each processed DeepLabCut file.
+
+The `output.csv` file will have the following format:
+-   First column: Name of the DeepLabCut file (`.h5` or `.csv`).
+-   Subsequent columns: Time spent (in seconds) and number of entries for each defined ROI. Column names will follow the pattern `[ROI Name] time spent` and `[ROI Name] entries`.
+
+Example `output.csv`:
+
+| h5_file    | ROI1 time spent | ROI2 time spent | ROI1 entries | ROI2 entries |
+|------------|-----------------|-----------------|--------------|--------------|
+| video1.h5  | 15.3            | 20.1            | 5            | 3            |
+| video2.csv | 10.5            | 25.9            | 8            | 2            |

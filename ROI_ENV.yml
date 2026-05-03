@@ -59,5 +59,6 @@ dependencies:
     - prompt-toolkit==3.0.5
     - pygments==2.6.1
     - tables==3.6.1
+    - tqdm==4.67.1
     - traitlets==4.3.3
     - wcwidth==0.2.2

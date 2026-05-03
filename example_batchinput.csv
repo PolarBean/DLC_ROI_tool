@@ -1,0 +1,2 @@
+shape_file_path,h5_file_path
+shapes/circ_right_1.csv,h5data/random_mouse.h5
